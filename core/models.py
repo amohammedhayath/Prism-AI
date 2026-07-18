@@ -16,6 +16,10 @@ class Resume(models.Model):
     # AI Extracted Data (Stores list of skills)
     extracted_skills = models.JSONField(default=list)
 
+    # Structured Resume Data (JSON) & Preferred Theme
+    structured_data = models.JSONField(default=dict, blank=True, null=True, help_text="Parsed resume elements")
+    preferred_theme = models.CharField(max_length=50, default="Executive", help_text="Visual theme style")
+
     # RAG/Vector Store Reference
     vector_store_id = models.CharField(max_length=255, blank=True)
 
@@ -55,11 +59,19 @@ class MatchResult(models.Model):
     
 
 class OptimizationSuggestion(models.Model):
+    # Status choices for acceptance workflow
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending Decision'),
+        ('ACCEPTED', 'Accepted'),
+        ('REJECTED', 'Rejected'),
+    ]
+
     match_result = models.ForeignKey(MatchResult, on_delete=models.CASCADE, related_name='suggestions')
     original_text = models.TextField(help_text="The exact text from the resume")
     optimized_text = models.TextField(help_text="The AI rewritten version")
     reason = models.TextField(help_text="Why this change was made (e.g. 'Aligned with JD terminology')")
     category = models.CharField(max_length=50, default="Terminology") # e.g. "Terminology", "Impact", "Clarity"
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING', help_text="Acceptance status")
 
     def __str__(self):
         return f"Suggestion for Match {self.match_result.id}"

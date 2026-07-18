@@ -108,13 +108,14 @@ const JobAnalyzer = ({ resumeId }) => {
                         {/* TAB 1: REPORT */}
                         <div style={{ display: activeTab === 'report' ? 'block' : 'none' }}>
                             <div className="text-center">
-                                <div style={{ fontSize: '5rem', fontWeight: '800', 
+                                <div style={{ fontSize: '3.2rem', fontWeight: '800', 
                                     background: result.score > 70 ? 'linear-gradient(to right, #4ade80, #22c55e)' : 'linear-gradient(to right, #f87171, #ef4444)',
-                                    backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent'
+                                    backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent',
+                                    lineHeight: '1.2'
                                 }}>
                                     {result.score}%
                                 </div>
-                                <p className="text-white-50 text-uppercase letter-spacing-2">Match Score</p>
+                                <p className="text-white-50 text-uppercase letter-spacing-2 small">Match Score</p>
                                 
                                 <div className="glass-card mt-4 text-start">
                                     <h6 className="text-primary mb-3 text-uppercase small fw-bold">AI Verdict</h6>

@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4236ebaa-4a11-4453-9796-66fe6f222270" name="Changes" comment="New updates of adding the agents">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/celery.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/ResumeUploader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/ai/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ai/agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +23,9 @@
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="71" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -51,12 +49,71 @@
     &quot;assignee&quot;: &quot;amohammedhayath&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/amohammedhayath/AI_Agent_Powered_Resume_Analyzer.git&quot;,
-    &quot;accountId&quot;: &quot;ec8ec496-0cc6-4eca-8acb-4c7ffb6fc36b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/amohammedhayath/AI_Agent_Powered_Resume_Analyzer",
+    "accountId": "8c6daa0b-caa6-48cf-b423-f01055caa6b2"
   }
-}</component>
+}]]></component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.9295375144401437" />
+      <entry key="MS500" value="3.8071721503374087" />
+      <entry key="S2" value="5.364404480077256" />
+      <entry key="S5" value="6.482220149607423" />
+      <entry key="S10" value="7.122014923591798" />
+      <entry key="S30" value="7.675027091206187" />
+      <entry key="S60" value="7.833090250523841" />
+      <entry key="M2" value="7.938184525628289" />
+      <entry key="M5" value="9.118677921806142" />
+      <entry key="M10" value="13.191232314997167" />
+      <entry key="M15" value="16.931916274155107" />
+      <entry key="M30" value="23.663618243726567" />
+      <entry key="H1" value="28.89298428421356" />
+      <entry key="H2" value="32.17276772957138" />
+      <entry key="H4" value="34.01234292903523" />
+      <entry key="D1" value="35.65792550490986" />
+      <entry key="W1" value="35.95086077473512" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="7.5396376070819E-160" />
+      <entry key="S5" value="2.2435729167825406E-64" />
+      <entry key="S10" value="1.4978561068348796E-32" />
+      <entry key="S30" value="2.4650366465486023E-11" />
+      <entry key="S60" value="4.965845798290532E-6" />
+      <entry key="M2" value="0.002258742903834697" />
+      <entry key="M5" value="0.10256096349099147" />
+      <entry key="M10" value="0.4198569547228888" />
+      <entry key="M15" value="0.6930084853827794" />
+      <entry key="M30" value="1.1655933763856587" />
+      <entry key="H1" value="1.522947567614698" />
+      <entry key="H2" value="1.7441359987665486" />
+      <entry key="H4" value="1.8673933652556425" />
+      <entry key="D1" value="1.9772184852179078" />
+      <entry key="W1" value="1.996728412202079" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.8423223643359843" />
+      <entry key="MS500" value="3.7340711888475386" />
+      <entry key="S2" value="5.215225395552993" />
+      <entry key="S5" value="6.380422549228228" />
+      <entry key="S10" value="7.060922783938697" />
+      <entry key="S30" value="7.652002016154099" />
+      <entry key="S60" value="7.821221958325594" />
+      <entry key="M2" value="7.934377128332452" />
+      <entry key="M5" value="9.218166927335352" />
+      <entry key="M10" value="13.608657488964989" />
+      <entry key="M15" value="17.62282355821492" />
+      <entry key="M30" value="24.827764144536918" />
+      <entry key="H1" value="30.415062964966435" />
+      <entry key="H2" value="33.91642512302952" />
+      <entry key="H4" value="35.879484792265885" />
+      <entry key="D1" value="37.635100271017215" />
+      <entry key="W1" value="37.9475828957437" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -78,10 +135,12 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "phase-1",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "D:/Projects/AI Resume/Prism-AI",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,7 +151,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Django Server.AI_Agent_Powered_Resume_Analyzer">
+  <component name="RunManager" selected="Django Server.Prism-AI">
     <configuration name="Verify_file1 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AI_Agent_Powered_Resume_Analyzer" />
       <option name="ENV_FILES" value="" />
@@ -106,6 +165,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Verify_file1.py" />
@@ -130,6 +190,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="C:\Users\MDHayath\Documents\GitHub\AI_Agent_Powered_Resume_Analyzer\Verify_file1.py" />
@@ -151,11 +212,37 @@
         <env name="DJANGO_SETTINGS_MODULE" value="AI_Agent_Powered_Resume_Analyzer.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13 (AI_Agent_Powered_Resume_Analyzer)" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Prism-AI" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Prism-AI" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="launchJavascriptDebuger" value="false" />
       <option name="port" value="8000" />
@@ -178,8 +265,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-c7e53b3be11b-JavaScript-PY-253.28294.336" />
-        <option value="bundled-python-sdk-0978a7220b69-9867c7d4c0a4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.28294.336" />
+        <option value="bundled-python-sdk-245168a56dbd-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.25134.203" />
       </set>
     </attachedChunks>
   </component>
@@ -193,6 +279,7 @@
       <workItem from="1765907503742" duration="5956000" />
       <workItem from="1765991984700" duration="1389000" />
       <workItem from="1766077776636" duration="6629000" />
+      <workItem from="1784357111170" duration="22148000" />
     </task>
     <task id="LOCAL-00001" summary="New updates and New initialization.">
       <option name="closed" value="true" />
@@ -215,6 +302,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />

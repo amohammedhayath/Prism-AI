@@ -36,24 +36,23 @@ const OptimizationDashboard = ({ matchId }) => {
         <div className="mt-5">
             {/* Header Section */}
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <h4 className="fw-bold mb-0" style={{ color: '#2c3e50' }}>
+                <h4 className="fw-bold mb-0 text-white text-gradient-glow">
                     ✨ AI Resume Enhancer
                 </h4>
                 
                 {status === 'IDLE' && (
                     <button 
-                        className="btn btn-dark rounded-pill px-4 py-2 shadow-sm" 
+                        className="btn btn-primary-glass" 
                         onClick={startOptimization}
-                        style={{ transition: 'all 0.3s' }}
                     >
                         Generate Improvements
                     </button>
                 )}
                 
                 {status === 'PROCESSING' && (
-                    <div className="d-flex align-items-center text-primary bg-white px-3 py-2 rounded-pill shadow-sm">
+                    <div className="d-flex align-items-center text-info px-3 py-2 rounded-pill" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
                         <div className="spinner-border spinner-border-sm me-2" role="status"></div>
-                        <span className="fw-bold small">Crafting suggestions...</span>
+                        <span className="fw-bold small text-white-50">Crafting suggestions...</span>
                     </div>
                 )}
             </div>

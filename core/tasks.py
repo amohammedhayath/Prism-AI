@@ -1,21 +1,17 @@
 import os
 import json
 import chromadb
-import google.generativeai as genai
 from celery import shared_task
 from django.conf import settings
 from .models import Resume, JobDescription, MatchResult, OptimizationSuggestion
+from .ai.agent import get_genai_client
+from google.genai import types
 from dotenv import load_dotenv
 
 load_dotenv()
 
-
 # --- CONFIGURATION ---
-# 1. Get API Key
-api_key = getattr(settings, 'GEMINI_API_KEY', None) or os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=api_key)
-
-# 2. Initialize ChromaDB
+# Initialize ChromaDB
 chroma_client = chromadb.PersistentClient(path="chroma_db")
 collection = chroma_client.get_or_create_collection(name="resume_embeddings")
 
@@ -26,47 +22,75 @@ def process_resume_task(resume_id):
     try:
         print(f"Starting processing for Resume ID: {resume_id}")
         resume = Resume.objects.get(id=resume_id)
+        
+        client = get_genai_client()
+        model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
-        # 1. Extract Data using Gemini
-        model = genai.GenerativeModel('gemini-flash-latest')
-        # (Assuming file exists and is readable. In prod, use pypdf)
-        uploaded_file = genai.upload_file(resume.file.path)
+        # 1. Read PDF file as inline bytes
+        with open(resume.file.path, 'rb') as f:
+            pdf_bytes = f.read()
 
-        # Extract Skills
-        response = model.generate_content([
-            "Extract skills from this resume as a JSON list. Example: ['Python', 'Django']",
-            uploaded_file
-        ])
+        pdf_part = types.Part.from_bytes(
+            data=pdf_bytes,
+            mime_type='application/pdf'
+        )
+
+        # 2. Extract Skills (Structured JSON)
+        print("Extracting skills via Gemini...")
+        response = client.models.generate_content(
+            model=model_name,
+            contents=[
+                "Extract skills from this resume as a JSON list of strings. Example: ['Python', 'Django']",
+                pdf_part
+            ],
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json"
+            )
+        )
+        
         try:
-            skills_text = response.text.strip().replace('```json', '').replace('```', '')
-            resume.extracted_skills = json.loads(skills_text)
-        except:
-            resume.extracted_skills = []
+            resume.extracted_skills = json.loads(response.text)
+        except Exception as json_err:
+            print(f"JSON parsing failed for skills: {json_err}. Fallback clean.")
+            # Fallback cleanup just in case
+            cleaned_text = response.text.strip().replace('```json', '').replace('```', '')
+            resume.extracted_skills = json.loads(cleaned_text)
 
-        # Extract Text
-        text_response = model.generate_content(["Extract full text from this resume.", uploaded_file])
+        # 3. Extract Full Raw Text
+        print("Extracting full text raw content...")
+        text_response = client.models.generate_content(
+            model=model_name,
+            contents=[
+                "Extract all raw text content from this resume PDF. Maintain hierarchy and clean structure.",
+                pdf_part
+            ]
+        )
         full_text = text_response.text
         resume.raw_text = full_text
 
-        # 2. Generate Embeddings (The "Brain" Memory)
+        # 4. Generate Embeddings (Text-Embedding-004) in Batch
         chunks = [c for c in full_text.split('\n\n') if c.strip()]
-        embedding_model = 'models/text-embedding-004'
+        print(f"Generating embeddings for {len(chunks)} chunks in a single batch request...")
 
-        for i, chunk in enumerate(chunks):
-            # Create Embedding
-            embedding = genai.embed_content(
-                model=embedding_model,
-                content=chunk,
-                task_type="retrieval_document"
-            )['embedding']
-
-            # Save to ChromaDB
-            collection.add(
-                ids=[f"resume_{resume.id}_chunk_{i}"],
-                embeddings=[embedding],  # <--- Storing Gemini Vectors
-                documents=[chunk],
-                metadatas=[{"resume_id": str(resume.id)}]
+        if chunks:
+            # Batch generate all embeddings in ONE single API call!
+            embedding_resp = client.models.embed_content(
+                model='text-embedding-004',
+                contents=chunks,
+                config=types.EmbedContentConfig(
+                    task_type="RETRIEVAL_DOCUMENT"
+                )
             )
+            
+            # Save all chunks to ChromaDB
+            for i, chunk in enumerate(chunks):
+                embedding = embedding_resp.embeddings[i].values
+                collection.add(
+                    ids=[f"resume_{resume.id}_chunk_{i}"],
+                    embeddings=[embedding],
+                    documents=[chunk],
+                    metadatas=[{"resume_id": str(resume.id)}]
+                )
 
         resume.vector_store_id = f"resume_{resume.id}"
         resume.processing_status = 'INDEXED'
@@ -75,12 +99,15 @@ def process_resume_task(resume_id):
 
     except Exception as e:
         print(f"Error processing resume: {e}")
-        resume = Resume.objects.get(id=resume_id)
-        resume.processing_status = 'FAILED'
-        resume.save()
+        try:
+            resume = Resume.objects.get(id=resume_id)
+            resume.processing_status = 'FAILED'
+            resume.save()
+        except Exception as inner_err:
+            print(f"Failed to update model status: {inner_err}")
 
 
-# --- TASK 2: ANALYZE JOB MATCH (Fixed) ---
+# --- TASK 2: ANALYZE JOB MATCH ---
 @shared_task
 def analyze_job_match_task(job_id, resume_id):
     try:
@@ -94,19 +121,22 @@ def analyze_job_match_task(job_id, resume_id):
             print("Error: Resume not indexed.")
             return
 
-        # 2. RAG Retrieval (FIXED: Use Gemini Embeddings for Query)
-        embedding_model = 'models/text-embedding-004'
+        client = get_genai_client()
+        model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
-        # Convert Job Description to Vector using Gemini
-        query_embedding = genai.embed_content(
-            model=embedding_model,
-            content=job.description,
-            task_type="retrieval_query"
-        )['embedding']
+        # 2. Convert Job Description to Vector
+        embedding_resp = client.models.embed_content(
+            model='text-embedding-004',
+            contents=job.description,
+            config=types.EmbedContentConfig(
+                task_type="RETRIEVAL_QUERY"
+            )
+        )
+        query_embedding = embedding_resp.embeddings[0].values
 
-        # Search ChromaDB using the VECTOR, not the text
+        # 3. Search ChromaDB
         results = collection.query(
-            query_embeddings=[query_embedding],  # <--- Comparing Vector to Vector
+            query_embeddings=[query_embedding],
             n_results=3,
             where={"resume_id": str(resume.id)}
         )
@@ -119,7 +149,7 @@ def analyze_job_match_task(job_id, resume_id):
 
         print(f"Found {len(relevant_chunks)} relevant chunks.")
 
-        # 3. AI Analysis
+        # 4. AI Analysis (Structured JSON)
         context_text = "\n".join(relevant_chunks)
         prompt = f"""
         You are an expert HR AI. Compare the following Candidate Context against the Job Description.
@@ -141,13 +171,21 @@ def analyze_job_match_task(job_id, resume_id):
         }}
         """
 
-        model = genai.GenerativeModel('gemini-flash-latest')
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json"
+            )
+        )
 
-        json_text = response.text.strip().replace('```json', '').replace('```', '')
-        analysis_data = json.loads(json_text)
+        try:
+            analysis_data = json.loads(response.text)
+        except Exception as json_err:
+            cleaned_text = response.text.strip().replace('```json', '').replace('```', '')
+            analysis_data = json.loads(cleaned_text)
 
-        # 4. Save Results
+        # 5. Save Results
         MatchResult.objects.create(
             job_description=job,
             resume=resume,
@@ -163,6 +201,7 @@ def analyze_job_match_task(job_id, resume_id):
         print(f"Analysis Failed: {str(e)}")
         return f"Failed: {str(e)}"
 
+
 # --- TASK 3: GENERATE OPTIMIZATION SUGGESTIONS ---
 @shared_task
 def generate_optimization_task(match_id):
@@ -172,8 +211,10 @@ def generate_optimization_task(match_id):
         job = match.job_description
         resume = match.resume
 
+        client = get_genai_client()
+        model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
         # 1. Construct the Context-Aware Prompt
-        # We give the AI the specific chunks relevant to the job, not the whole resume (to save tokens/focus)
         resume_context = "\n".join(match.relevant_chunks)
 
         prompt = f"""
@@ -208,16 +249,23 @@ def generate_optimization_task(match_id):
         ]
         """
 
-        # 2. Call Gemini
-        model = genai.GenerativeModel('gemini-flash-latest')
-        response = model.generate_content(prompt)
+        # 2. Call Gemini (Structured JSON)
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json"
+            )
+        )
 
-        # 3. Clean JSON
-        json_text = response.text.strip().replace('```json', '').replace('```', '')
-        suggestions = json.loads(json_text)
+        # 3. Clean and parse JSON
+        try:
+            suggestions = json.loads(response.text)
+        except Exception as json_err:
+            cleaned_text = response.text.strip().replace('```json', '').replace('```', '')
+            suggestions = json.loads(cleaned_text)
 
         # 4. Save to Database
-        # Clear old suggestions for this match first (optional)
         OptimizationSuggestion.objects.filter(match_result=match).delete()
 
         for item in suggestions:
