@@ -4,25 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4236ebaa-4a11-4453-9796-66fe6f222270" name="Changes" comment="New updates of adding the agents">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="4236ebaa-4a11-4453-9796-66fe6f222270" name="Changes" comment="Added new features.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/ai/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ai/agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/ai/vector_store.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ai/vector_store.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/logo192.png" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/logo192.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/logo512.png" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/logo512.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/accuracy.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/enhancement.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/enhancement.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenshots/main.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/main.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/ResumeUploader.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/ResumeUploader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,23 +56,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.8212554291798737" />
-      <entry key="MS500" value="3.383778773608573" />
-      <entry key="S2" value="4.457089465399456" />
-      <entry key="S5" value="4.768022977201783" />
-      <entry key="S10" value="4.881367574493381" />
-      <entry key="S30" value="4.959851044300502" />
-      <entry key="S60" value="4.9798488130201815" />
-      <entry key="M2" value="4.989905145116658" />
-      <entry key="M5" value="4.995957424501312" />
-      <entry key="M10" value="4.997977942331461" />
-      <entry key="M15" value="4.998658429757621" />
-      <entry key="M30" value="5.014147081274924" />
-      <entry key="H1" value="5.7227565970537535" />
-      <entry key="H2" value="10.089500162864164" />
-      <entry key="H4" value="18.528024767828143" />
-      <entry key="D1" value="35.57895441676875" />
-      <entry key="W1" value="40.17028989800219" />
+      <entry key="MS100" value="1.0009882373939596" />
+      <entry key="MS500" value="1.4324482946984964" />
+      <entry key="S2" value="3.290551823950179" />
+      <entry key="S5" value="4.968068956486341" />
+      <entry key="S10" value="6.865129235077964" />
+      <entry key="S30" value="17.300990628388963" />
+      <entry key="S60" value="26.135827865709473" />
+      <entry key="M2" value="32.908659627248426" />
+      <entry key="M5" value="38.038786572269046" />
+      <entry key="M10" value="39.96086188284134" />
+      <entry key="M15" value="40.627224867014625" />
+      <entry key="M30" value="41.32133959312972" />
+      <entry key="H1" value="42.36687305293266" />
+      <entry key="H2" value="46.88710043395067" />
+      <entry key="H4" value="55.40345883416687" />
+      <entry key="D1" value="72.5503360846297" />
+      <entry key="W1" value="77.16589934141528" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -93,37 +80,37 @@
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
-      <entry key="S30" value="1.585205611746834E-203" />
-      <entry key="S60" value="3.982211663294258E-102" />
-      <entry key="M2" value="2.0227041076588348E-51" />
-      <entry key="M5" value="6.1916773091622406E-21" />
-      <entry key="M10" value="1.031607432577564E-10" />
-      <entry key="M15" value="2.7186123969504516E-7" />
-      <entry key="M30" value="7.300480431356225E-4" />
-      <entry key="H1" value="0.038114228805354575" />
-      <entry key="H2" value="0.27591889274906445" />
-      <entry key="H4" value="0.742739220861068" />
-      <entry key="D1" value="1.6955922379156216" />
-      <entry key="W1" value="1.9533752349281779" />
+      <entry key="S30" value="4.218893710578181E-204" />
+      <entry key="S60" value="2.054380250996331E-102" />
+      <entry key="M2" value="1.4528159599450966E-51" />
+      <entry key="M5" value="5.4239991461313294E-21" />
+      <entry key="M10" value="9.655396473666771E-11" />
+      <entry key="M15" value="2.6012637711709677E-7" />
+      <entry key="M30" value="7.141180179291198E-4" />
+      <entry key="H1" value="0.03769609919889566" />
+      <entry key="H2" value="0.2744012440441888" />
+      <entry key="H4" value="0.7406937438308838" />
+      <entry key="D1" value="1.6948130767140646" />
+      <entry key="W1" value="1.9532469785176894" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.4060411471824668" />
-      <entry key="MS500" value="3.224580395492446" />
-      <entry key="S2" value="4.405400290074477" />
-      <entry key="S5" value="4.746004635227078" />
-      <entry key="S10" value="4.870115155017183" />
-      <entry key="S30" value="4.9560442352456615" />
-      <entry key="S60" value="4.977938282679305" />
-      <entry key="M2" value="4.98894808893529" />
-      <entry key="M5" value="4.995574170956595" />
-      <entry key="M10" value="4.997786243713585" />
-      <entry key="M15" value="4.998530885651536" />
-      <entry key="M30" value="5.014812307146801" />
-      <entry key="H1" value="5.76081712077243" />
-      <entry key="H2" value="10.365327360799366" />
-      <entry key="H4" value="19.27065596565806" />
-      <entry key="D1" value="37.27450783099272" />
-      <entry key="W1" value="42.12365878808328" />
+      <entry key="MS100" value="0.9535729275865217" />
+      <entry key="MS500" value="1.4180153398848008" />
+      <entry key="S2" value="3.2816338683974777" />
+      <entry key="S5" value="4.962499797476877" />
+      <entry key="S10" value="6.860994866098828" />
+      <entry key="S30" value="17.296504281936134" />
+      <entry key="S60" value="26.13217114720432" />
+      <entry key="M2" value="32.90627578061677" />
+      <entry key="M5" value="38.03766246816355" />
+      <entry key="M10" value="39.96026766688517" />
+      <entry key="M15" value="40.62682153192952" />
+      <entry key="M30" value="41.32184722352088" />
+      <entry key="H1" value="42.4044438791211" />
+      <entry key="H2" value="47.161374253538554" />
+      <entry key="H4" value="56.144026696451554" />
+      <entry key="D1" value="74.24510732406094" />
+      <entry key="W1" value="79.11913954230768" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -301,7 +288,7 @@
       <workItem from="1766077776636" duration="6629000" />
       <workItem from="1784357111170" duration="26524000" />
       <workItem from="1784388217450" duration="6996000" />
-      <workItem from="1784469837813" duration="3366000" />
+      <workItem from="1784469837813" duration="4037000" />
     </task>
     <task id="LOCAL-00001" summary="New updates and New initialization.">
       <option name="closed" value="true" />
@@ -327,7 +314,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784383846714</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added new features.">
+      <option name="closed" value="true" />
+      <created>1784473266532</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1784473266532</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,7 +343,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="New updates and New initialization." />
     <MESSAGE value="New updates of adding the agents" />
-    <option name="LAST_COMMIT_MESSAGE" value="New updates of adding the agents" />
+    <MESSAGE value="Added new features." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new features." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AI_Agent_Powered_Resume_Analyzer$verify_m2.coverage" NAME="verify_m2 Coverage Results" MODIFIED="1766078607159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

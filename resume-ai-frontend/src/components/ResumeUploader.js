@@ -13,7 +13,7 @@ const ResumeUploader = ({ onUploadSuccess }) => {
         formData.append('file', file);
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/resumes/upload/', formData);
+            const response = await axios.post('/api/resumes/upload/', formData);
             setMessage(`✅ Upload Successful! ID: ${response.data.id}`);
             onUploadSuccess(response.data.id);
         } catch (error) {
