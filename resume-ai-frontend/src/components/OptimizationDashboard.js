@@ -9,11 +9,18 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     const [downloading, setDownloading] = useState(false);
     const pollingIntervalRef = useRef(null);
 
+    // Helper to get fully resolved backend URL for browser direct window loads (e.g. PDF downloads)
+    const getBackendUrl = (path) => {
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const base = isDev ? 'http://127.0.0.1:8000' : '';
+        return `${base}${path}`;
+    };
+
     // Auto-fetch existing suggestions on mount, and handle unmount cleanup
     useEffect(() => {
         const fetchExistingSuggestions = async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/optimize/${matchId}/results/`);
+                const res = await axios.get(`/api/optimize/${matchId}/results/`);
                 if (res.data.status === 'COMPLETED' && res.data.data.length > 0) {
                     setSuggestions(res.data.data);
                     setStatus('COMPLETED');
@@ -35,7 +42,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     const startOptimization = async () => {
         try {
             setStatus('PROCESSING');
-            await axios.post('http://127.0.0.1:8000/api/optimize/trigger/', { match_id: matchId });
+            await axios.post('/api/optimize/trigger/', { match_id: matchId });
             pollForResults();
         } catch (error) {
             console.error(error);
@@ -50,7 +57,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
 
         pollingIntervalRef.current = setInterval(async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/optimize/${matchId}/results/`);
+                const res = await axios.get(`/api/optimize/${matchId}/results/`);
                 if (res.data.status === 'COMPLETED' && res.data.data.length > 0) {
                     setSuggestions(res.data.data);
                     setStatus('COMPLETED');
@@ -66,7 +73,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     // --- Interactive Action: Accept Suggestions ---
     const handleAccept = async (id) => {
         try {
-            await axios.post(`http://127.0.0.1:8000/api/suggestions/${id}/accept/`);
+            await axios.post(`/api/suggestions/${id}/accept/`);
             setSuggestions(prev => prev.map(item => 
                 item.id === id ? { ...item, status: 'ACCEPTED' } : item
             ));
@@ -79,7 +86,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     // --- Interactive Action: Reject Suggestions ---
     const handleReject = async (id) => {
         try {
-            await axios.post(`http://127.0.0.1:8000/api/suggestions/${id}/reject/`);
+            await axios.post(`/api/suggestions/${id}/reject/`);
             setSuggestions(prev => prev.map(item => 
                 item.id === id ? { ...item, status: 'REJECTED' } : item
             ));
@@ -93,7 +100,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     const triggerDownload = () => {
         setDownloading(true);
         setTimeout(() => setDownloading(false), 2000);
-        window.open(`http://127.0.0.1:8000/api/resumes/${resumeId}/download/?theme=${selectedTheme}`, '_blank');
+        window.open(getBackendUrl(`/api/resumes/${resumeId}/download/?theme=${selectedTheme}`), '_blank');
     };
 
     return (

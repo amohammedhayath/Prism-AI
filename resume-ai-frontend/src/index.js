@@ -4,6 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+
+// Dynamically set Axios base URL depending on environment host
+const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+axios.defaults.baseURL = isDev ? 'http://127.0.0.1:8000' : '';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

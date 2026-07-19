@@ -28,7 +28,7 @@ const JobAnalyzer = ({ resumeId }) => {
         setStatus('Starting...');
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/jobs/analyze/', {
+            const response = await axios.post('/api/jobs/analyze/', {
                 resume_id: resumeId,
                 title: title || "Frontend Job Search",
                 description: jobDescription
@@ -50,7 +50,7 @@ const JobAnalyzer = ({ resumeId }) => {
 
         pollingIntervalRef.current = setInterval(async () => {
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/jobs/${jobId}/result/`);
+                const res = await axios.get(`/api/jobs/${jobId}/result/`);
                 if (res.data.status === "COMPLETED") {
                     clearInterval(pollingIntervalRef.current);
                     pollingIntervalRef.current = null;
