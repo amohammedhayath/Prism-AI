@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  # 1. Message Broker
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+  # 2. Django REST API Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./chroma_db:/app/chroma_db
+      - ./resumes:/app/resumes
+      - ./generated_resumes:/app/generated_resumes
+    depends_on:
+      - redis
+
+  # 3. Asynchronous Celery Worker
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A AI_Agent_Powered_Resume_Analyzer worker --loglevel=info
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./chroma_db:/app/chroma_db
+      - ./resumes:/app/resumes
+      - ./generated_resumes:/app/generated_resumes
+    depends_on:
+      - redis
+
+  # 4. Premium React Web Frontend (Nginx Proxy served on Port 80)
+  frontend:
+    build:
+      context: ./resume-ai-frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
