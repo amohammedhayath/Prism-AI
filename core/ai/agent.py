@@ -13,7 +13,7 @@ def get_genai_client():
     Automatically switches between Google Cloud Vertex AI (with credit-loaded project ID)
     and Google AI Studio (API Key) based on .env configuration.
     """
-    use_vertex = os.getenv("USE_VERTEX_AI", "True").lower() in ("true", "1", "yes")
+    use_vertex = os.getenv("USE_VERTEX_AI", "False").lower() in ("true", "1", "yes")
     
     if use_vertex:
         project_id = os.getenv("GCP_PROJECT_ID")

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import OptimizationDashboard from './OptimizationDashboard';
 
@@ -9,6 +9,16 @@ const JobAnalyzer = ({ resumeId }) => {
     const [result, setResult] = useState(null);
     const [status, setStatus] = useState('');
     const [activeTab, setActiveTab] = useState('report'); 
+    const pollingIntervalRef = useRef(null);
+
+    // Clean up active interval on component unmount
+    useEffect(() => {
+        return () => {
+            if (pollingIntervalRef.current) {
+                clearInterval(pollingIntervalRef.current);
+            }
+        };
+    }, []);
 
     const handleAnalyze = async () => {
         if (!resumeId) return;
@@ -34,11 +44,16 @@ const JobAnalyzer = ({ resumeId }) => {
     };
 
     const pollForResult = (jobId) => {
-        const interval = setInterval(async () => {
+        if (pollingIntervalRef.current) {
+            clearInterval(pollingIntervalRef.current);
+        }
+
+        pollingIntervalRef.current = setInterval(async () => {
             try {
                 const res = await axios.get(`http://127.0.0.1:8000/api/jobs/${jobId}/result/`);
                 if (res.data.status === "COMPLETED") {
-                    clearInterval(interval);
+                    clearInterval(pollingIntervalRef.current);
+                    pollingIntervalRef.current = null;
                     setResult(res.data);
                     setAnalyzing(false);
                     setStatus('');
@@ -129,7 +144,7 @@ const JobAnalyzer = ({ resumeId }) => {
                         {/* TAB 2: OPTIMIZATION */}
                         {result.match_id && (
                             <div style={{ display: activeTab === 'enhancer' ? 'block' : 'none' }}>
-                                <OptimizationDashboard matchId={result.match_id} />
+                                <OptimizationDashboard matchId={result.match_id} resumeId={resumeId} />
                             </div>
                         )}
                     </div>
