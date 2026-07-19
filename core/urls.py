@@ -6,7 +6,10 @@ from .views import (
     JobAnalysisView, 
     MatchResultView, 
     TriggerOptimizationView, 
-    OptimizationResultView
+    OptimizationResultView,
+    AcceptSuggestionView,
+    RejectSuggestionView,
+    DownloadResumePDFView
 )
 
 urlpatterns = [
@@ -20,4 +23,11 @@ urlpatterns = [
     # 3. Optimization (The AI Enhancer)
     path('optimize/trigger/', TriggerOptimizationView.as_view(), name='optimize-trigger'),
     path('optimize/<int:match_id>/results/', OptimizationResultView.as_view(), name='optimize-results'),
+    
+    # 4. Accept/Reject Actions
+    path('suggestions/<int:suggestion_id>/accept/', AcceptSuggestionView.as_view(), name='suggestion-accept'),
+    path('suggestions/<int:suggestion_id>/reject/', RejectSuggestionView.as_view(), name='suggestion-reject'),
+    
+    # 5. Compile and Download PDF
+    path('resumes/<int:resume_id>/download/', DownloadResumePDFView.as_view(), name='resume-download-pdf'),
 ]

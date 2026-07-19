@@ -51,4 +51,4 @@ class MatchResultSerializer(serializers.ModelSerializer):
 class OptimizationSuggestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = OptimizationSuggestion
-        fields = ['id', 'original_text', 'optimized_text', 'reason', 'category']
+        fields = ['id', 'original_text', 'optimized_text', 'reason', 'category', 'status']

@@ -5,16 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4236ebaa-4a11-4453-9796-66fe6f222270" name="Changes" comment="New updates of adding the agents">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI_Agent_Powered_Resume_Analyzer/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/ai/agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ai/agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/ai/vector_store.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/ai/vector_store.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/logo192.png" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/logo192.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/logo512.png" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/logo512.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/public/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/JobAnalyzer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/resume-ai-frontend/src/components/OptimizationDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/accuracy.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/accuracy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/enhancement.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/enhancement.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/main.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshots/main.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +33,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="71" />
+    <option name="cachedIndexableFilesCount" value="106" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -49,69 +57,73 @@
     &quot;assignee&quot;: &quot;amohammedhayath&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/amohammedhayath/AI_Agent_Powered_Resume_Analyzer",
-    "accountId": "8c6daa0b-caa6-48cf-b423-f01055caa6b2"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/amohammedhayath/AI_Agent_Powered_Resume_Analyzer&quot;,
+    &quot;accountId&quot;: &quot;8c6daa0b-caa6-48cf-b423-f01055caa6b2&quot;
   }
-}]]></component>
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.9295375144401437" />
-      <entry key="MS500" value="3.8071721503374087" />
-      <entry key="S2" value="5.364404480077256" />
-      <entry key="S5" value="6.482220149607423" />
-      <entry key="S10" value="7.122014923591798" />
-      <entry key="S30" value="7.675027091206187" />
-      <entry key="S60" value="7.833090250523841" />
-      <entry key="M2" value="7.938184525628289" />
-      <entry key="M5" value="9.118677921806142" />
-      <entry key="M10" value="13.191232314997167" />
-      <entry key="M15" value="16.931916274155107" />
-      <entry key="M30" value="23.663618243726567" />
-      <entry key="H1" value="28.89298428421356" />
-      <entry key="H2" value="32.17276772957138" />
-      <entry key="H4" value="34.01234292903523" />
-      <entry key="D1" value="35.65792550490986" />
-      <entry key="W1" value="35.95086077473512" />
+      <entry key="MS100" value="1.8212554291798737" />
+      <entry key="MS500" value="3.383778773608573" />
+      <entry key="S2" value="4.457089465399456" />
+      <entry key="S5" value="4.768022977201783" />
+      <entry key="S10" value="4.881367574493381" />
+      <entry key="S30" value="4.959851044300502" />
+      <entry key="S60" value="4.9798488130201815" />
+      <entry key="M2" value="4.989905145116658" />
+      <entry key="M5" value="4.995957424501312" />
+      <entry key="M10" value="4.997977942331461" />
+      <entry key="M15" value="4.998658429757621" />
+      <entry key="M30" value="5.014147081274924" />
+      <entry key="H1" value="5.7227565970537535" />
+      <entry key="H2" value="10.089500162864164" />
+      <entry key="H4" value="18.528024767828143" />
+      <entry key="D1" value="35.57895441676875" />
+      <entry key="W1" value="40.17028989800219" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="7.5396376070819E-160" />
-      <entry key="S5" value="2.2435729167825406E-64" />
-      <entry key="S10" value="1.4978561068348796E-32" />
-      <entry key="S30" value="2.4650366465486023E-11" />
-      <entry key="S60" value="4.965845798290532E-6" />
-      <entry key="M2" value="0.002258742903834697" />
-      <entry key="M5" value="0.10256096349099147" />
-      <entry key="M10" value="0.4198569547228888" />
-      <entry key="M15" value="0.6930084853827794" />
-      <entry key="M30" value="1.1655933763856587" />
-      <entry key="H1" value="1.522947567614698" />
-      <entry key="H2" value="1.7441359987665486" />
-      <entry key="H4" value="1.8673933652556425" />
-      <entry key="D1" value="1.9772184852179078" />
-      <entry key="W1" value="1.996728412202079" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="1.585205611746834E-203" />
+      <entry key="S60" value="3.982211663294258E-102" />
+      <entry key="M2" value="2.0227041076588348E-51" />
+      <entry key="M5" value="6.1916773091622406E-21" />
+      <entry key="M10" value="1.031607432577564E-10" />
+      <entry key="M15" value="2.7186123969504516E-7" />
+      <entry key="M30" value="7.300480431356225E-4" />
+      <entry key="H1" value="0.038114228805354575" />
+      <entry key="H2" value="0.27591889274906445" />
+      <entry key="H4" value="0.742739220861068" />
+      <entry key="D1" value="1.6955922379156216" />
+      <entry key="W1" value="1.9533752349281779" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.8423223643359843" />
-      <entry key="MS500" value="3.7340711888475386" />
-      <entry key="S2" value="5.215225395552993" />
-      <entry key="S5" value="6.380422549228228" />
-      <entry key="S10" value="7.060922783938697" />
-      <entry key="S30" value="7.652002016154099" />
-      <entry key="S60" value="7.821221958325594" />
-      <entry key="M2" value="7.934377128332452" />
-      <entry key="M5" value="9.218166927335352" />
-      <entry key="M10" value="13.608657488964989" />
-      <entry key="M15" value="17.62282355821492" />
-      <entry key="M30" value="24.827764144536918" />
-      <entry key="H1" value="30.415062964966435" />
-      <entry key="H2" value="33.91642512302952" />
-      <entry key="H4" value="35.879484792265885" />
-      <entry key="D1" value="37.635100271017215" />
-      <entry key="W1" value="37.9475828957437" />
+      <entry key="MS100" value="1.4060411471824668" />
+      <entry key="MS500" value="3.224580395492446" />
+      <entry key="S2" value="4.405400290074477" />
+      <entry key="S5" value="4.746004635227078" />
+      <entry key="S10" value="4.870115155017183" />
+      <entry key="S30" value="4.9560442352456615" />
+      <entry key="S60" value="4.977938282679305" />
+      <entry key="M2" value="4.98894808893529" />
+      <entry key="M5" value="4.995574170956595" />
+      <entry key="M10" value="4.997786243713585" />
+      <entry key="M15" value="4.998530885651536" />
+      <entry key="M30" value="5.014812307146801" />
+      <entry key="H1" value="5.76081712077243" />
+      <entry key="H2" value="10.365327360799366" />
+      <entry key="H4" value="19.27065596565806" />
+      <entry key="D1" value="37.27450783099272" />
+      <entry key="W1" value="42.12365878808328" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -127,8 +139,11 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Django Server.AI_Agent_Powered_Resume_Analyzer.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found": "New/updated database configurations found",
+    "Notification.DoNotAsk-DatabaseConfigFileWatcher.found": "true",
     "Python.Verify_file1 (1).executor": "Run",
     "Python.verify_m2.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -137,7 +152,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "new__features__upgrade",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "D:/Projects/AI Resume/Prism-AI",
@@ -151,6 +166,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\AI Resume\Prism-AI\generated_resumes" />
+    </key>
+  </component>
   <component name="RunManager" selected="Django Server.Prism-AI">
     <configuration name="Verify_file1 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AI_Agent_Powered_Resume_Analyzer" />
@@ -279,7 +299,9 @@
       <workItem from="1765907503742" duration="5956000" />
       <workItem from="1765991984700" duration="1389000" />
       <workItem from="1766077776636" duration="6629000" />
-      <workItem from="1784357111170" duration="22148000" />
+      <workItem from="1784357111170" duration="26524000" />
+      <workItem from="1784388217450" duration="6996000" />
+      <workItem from="1784469837813" duration="3366000" />
     </task>
     <task id="LOCAL-00001" summary="New updates and New initialization.">
       <option name="closed" value="true" />
@@ -297,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765913509842</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="New updates of adding the agents">
+      <option name="closed" value="true" />
+      <created>1784383846714</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1784383846714</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

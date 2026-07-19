@@ -12,8 +12,9 @@ env/
 db.sqlite3
 chroma_db/
 
-# --- Uploaded Media ---
+# --- Uploaded Media & Compiled Output ---
 resumes/
+generated_resumes/
 media/
 
 # --- IDE Settings (Optional) ---
