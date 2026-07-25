@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     texlive-latex-base \
-    texlive-fonts-recommended \
+    texlive-fonts-recommended texlive-latex-extra \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory inside the container

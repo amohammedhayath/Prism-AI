@@ -360,13 +360,13 @@ def compile_latex_to_pdf(structured_data, theme="Executive"):
     try:
         # Write .tex file
         with open(tex_path, "w", encoding="utf-8") as f:
-            f.write(full_latex_code)
+            f.write(full_latex_code.replace("\r", ""))
 
         # Debug: Save generated LaTeX code to generated_resumes/ for verification
         try:
             debug_tex_path = os.path.join(output_dir, "generated_resume_10.tex")
             with open(debug_tex_path, "w", encoding="utf-8") as debug_f:
-                debug_f.write(full_latex_code)
+                debug_f.write(full_latex_code.replace("\r", ""))
         except Exception:
             pass
 
@@ -386,7 +386,7 @@ def compile_latex_to_pdf(structured_data, theme="Executive"):
             try:
                 failed_tex_path = os.path.join(output_dir, "failed_resume.tex")
                 with open(failed_tex_path, "w", encoding="utf-8") as debug_f:
-                    debug_f.write(full_latex_code)
+                    debug_f.write(full_latex_code.replace("\r", ""))
                 
                 temp_log_path = os.path.join(temp_dir, "resume.log")
                 if os.path.exists(temp_log_path):

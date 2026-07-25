@@ -31,7 +31,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: celery -A AI_Agent_Powered_Resume_Analyzer worker --loglevel=info
+    command: celery -A AI_Agent_Powered_Resume_Analyzer worker --loglevel=info --pool=solo
     restart: always
     env_file:
       - .env
