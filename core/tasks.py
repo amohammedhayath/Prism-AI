@@ -35,29 +35,76 @@ def process_resume_task(resume_id):
             mime_type='application/pdf'
         )
 
-        # 2. Extract Skills (Structured JSON)
-        print("Extracting skills via Gemini...")
+        # 2. Extract Complete Structured Resume & Auto-Detect Theme
+        print("Parsing resume into clean structured JSON and detecting layout theme via Gemini...")
+        prompt = """
+        Analyze this resume PDF and parse it into a structured JSON format. 
+        Additionally, analyze the vocabulary, style, and structure of the candidate's resume and auto-detect which visual theme fits their style best:
+        - "Executive" (Formal, single-column, traditional, corporate-focused)
+        - "Tech" (Modern, sans-serif, technology-focused, crisp layout)
+        - "Academic" (Compact, publication/CV layout, research and education focused)
+
+        Output ONLY a valid JSON object matching the following structure:
+        {
+            "name": "Candidate Full Name",
+            "contact": {
+                "email": "email address",
+                "phone": "phone number",
+                "location": "city, country",
+                "linkedin": "linkedin url if exists"
+            },
+            "summary": "Candidate's professional summary or profile statement if exists, otherwise leave blank",
+            "skills": ["Skill 1", "Skill 2"],
+            "education": [
+                {
+                    "institution": "University/School name",
+                    "degree": "Degree earned",
+                    "date": "Year or date range"
+                }
+            ],
+            "experience": [
+                {
+                    "company": "Company Name",
+                    "role": "Job Title/Role",
+                    "date": "Date range",
+                    "bullets": [
+                        "Accomplishment bullet point 1",
+                        "Accomplishment bullet point 2"
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "title": "Project Name",
+                    "date": "Project date range or completion year",
+                    "description": "Short description of what the project is, goals, or technologies used"
+                }
+            ],
+            "detected_theme": "Executive" or "Tech" or "Academic"
+        }
+        """
+
         response = client.models.generate_content(
             model=model_name,
-            contents=[
-                "Extract skills from this resume as a JSON list of strings. Example: ['Python', 'Django']",
-                pdf_part
-            ],
+            contents=[prompt, pdf_part],
             config=types.GenerateContentConfig(
                 response_mime_type="application/json"
             )
         )
         
-        try:
-            resume.extracted_skills = json.loads(response.text)
-        except Exception as json_err:
-            print(f"JSON parsing failed for skills: {json_err}. Fallback clean.")
-            # Fallback cleanup just in case
-            cleaned_text = response.text.strip().replace('```json', '').replace('```', '')
-            resume.extracted_skills = json.loads(cleaned_text)
+        # Parse the JSON response
+        parsed_data = json.loads(response.text)
+        
+        # Save JSON data and the detected theme to our database
+        resume.structured_data = parsed_data
+        resume.preferred_theme = parsed_data.get("detected_theme", "Executive")
+        resume.candidate_name = parsed_data.get("name", "Candidate")
+        
+        # Store extracted skills separately for backwards compatibility
+        resume.extracted_skills = parsed_data.get("skills", [])
 
         # 3. Extract Full Raw Text
-        print("Extracting full text raw content...")
+        print("Extracting raw text for RAG chunking...")
         text_response = client.models.generate_content(
             model=model_name,
             contents=[
@@ -95,7 +142,7 @@ def process_resume_task(resume_id):
         resume.vector_store_id = f"resume_{resume.id}"
         resume.processing_status = 'INDEXED'
         resume.save()
-        print(f"Resume {resume_id} processed successfully.")
+        print(f"Resume {resume_id} processed and indexed successfully!")
 
     except Exception as e:
         print(f"Error processing resume: {e}")
@@ -141,11 +188,12 @@ def analyze_job_match_task(job_id, resume_id):
             where={"resume_id": str(resume.id)}
         )
 
-        if not results['documents'][0]:
+        documents = results.get('documents', [])
+        if not documents or not documents[0]:
             print("No relevant chunks found.")
             relevant_chunks = ["No specific match found in resume."]
         else:
-            relevant_chunks = results['documents'][0]
+            relevant_chunks = documents[0]
 
         print(f"Found {len(relevant_chunks)} relevant chunks.")
 

@@ -40,12 +40,12 @@ Using **Google Gemini 2.5 Flash**, **Vector Embeddings (RAG)**, and **Agentic Wo
 ---
 
 ## 📂 Project Organization & Decoupled Storage
-
 To maintain a clean working directory, the storage for candidate uploads has been cleanly decoupled from development build environments:
 * **`resumes/`**: Django storage folder containing candidate's uploaded original files (PDF/DOCX).
 * **`generated_resumes/`**: Dedicated subfolder for LaTeX-compiled outputs.
-  * **Successful builds**: Generates the LaTeX source `generated_resume_10.tex`, compiled binary `generated_resume_10.pdf`, and compiler stdout logs `generated_resume_10.log`.
-  * **Debug builds**: Compilation failures generate `failed_resume.tex` and compiler error logs `failed_resume.log`.
+  * Successful builds: Generates the LaTeX source `generated_resume_10.tex`, compiled binary `generated_resume_10.pdf`, and compiler stdout logs `generated_resume_10.log`.
+  * Debug builds: Compilation failures generate `failed_resume.tex` and `failed_resume.log` inside this directory for easy developer troubleshooting.
+
 
 ---
 
@@ -94,3 +94,112 @@ When deploying this agent on a Google Cloud Platform Compute Engine Virtual Mach
    LaTeX compilation dependencies (`texlive-latex-extra`) require about 1.5GB of space during Docker builds. Clean up dangling images using `docker system prune -a --volumes -f` to maintain sufficient free disk space.
 5. 🛡️ **Django ALLOWED_HOSTS:** 
    In production, configure `ALLOWED_HOSTS = ['*']` in `settings.py` so Django accepts requests routed through the public VM IP address or load balancers.
+---
+
+## 🛠️ Tech Stack
+
+* **Brain:** Google Gemini 2.5 Flash & Vertex AI (via Unified Google Gen AI SDK)
+* **Memory:** ChromaDB (Vector Store for RAG)
+* **Backend:** Django REST Framework (Python)
+* **Frontend:** React.js + Custom "Liquid Glass" CSS
+* **Orchestration:** Celery + Redis (Asynchronous Agent Queues)
+
+---
+
+## 🚀 How to Run
+
+### Prerequisites
+* Python 3.10+
+* Node.js
+* Redis Server (Running locally)
+* Google Gemini API Key (AI Studio) or Google Cloud Platform Credentials (Vertex AI)
+* **LaTeX Compiler (Required for PDF Generation & Download):**
+  * **Windows:** Download and install [MiKTeX](https://miktex.org/download). Ensure `pdflatex` is added to your system environment variable `PATH`.
+  * **macOS:** Install MacTeX (without GUI) using Homebrew: `brew install --cask mactex-no-gui`
+  * **Linux (Debian/Ubuntu):** Install base TeX Live packages: `sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended`
+
+### 1. Backend Setup
+
+```bash
+# Enter project directory
+cd Prism-AI
+
+# Virtual Env
+python -m venv .venv
+# Activate on Windows:
+.venv\Scripts\activate
+# Activate on macOS/Linux:
+source .venv/bin/activate
+
+# Install Dependencies
+pip install -r requirements.txt
+```
+
+#### Setup Environment Variables (Create a `.env` file in the root directory):
+```env
+# Switch between Google AI Studio (False) or Google Cloud Vertex AI (True)
+USE_VERTEX_AI=False
+
+# If using AI Studio:
+GEMINI_API_KEY="your_ai_studio_api_key"
+
+# If using Vertex AI (USE_VERTEX_AI=True):
+GCP_PROJECT_ID="your_gcp_project_id"
+GCP_LOCATION="us-central1"
+
+# Target Model Specification
+GEMINI_MODEL="gemini-2.5-flash"
+```
+
+```bash
+# Migrations
+python manage.py migrate
+
+# Start Redis Worker (Terminal 1)
+# NOTE: The --pool=solo flag is required on Windows to avoid Celery multiprocessing issues
+celery -A AI_Agent_Powered_Resume_Analyzer worker --loglevel=info --pool=solo
+
+# Start Django Server (Terminal 2)
+python manage.py runserver
+```
+
+### 2. Frontend Setup
+
+```bash
+cd resume-ai-frontend
+
+# Install Node Modules
+npm install
+
+# Start React App
+npm start
+```
+The React development server will start at `http://localhost:3000`.
+
+---
+
+## 📸 Screen Gallery
+
+**1. The "Liquid Glass" Dashboard**
+*A modern, dark-themed upload interface using glassmorphism design.*
+![Dashboard UI](screenshots/main.png)
+
+**2. The Analysis Report**
+*Deep semantic analysis of the resume vs. the job description with a fitment score.*
+![Analysis Report](screenshots/accuracy.png)
+
+**3. The AI Optimizer**
+*Side-by-side comparison showing how the AI rewrites bullet points to match the JD.*
+![Optimization Cards](screenshots/enhancement.png)
+
+---
+
+## 🔮 Future Roadmap
+
+* [ ] **Interview Agent:** Generates tech-stack specific questions based on the gaps found.
+* [ ] **PDF Export:** Fully integrated button to download the "Optimized Resume" as compiled directly from the frontend themes.
+* [ ] **LinkedIn Scraper:** Auto-fetch JDs from LinkedIn URLs.
+
+---
+
+**Star ⭐ this repo if you like it!**

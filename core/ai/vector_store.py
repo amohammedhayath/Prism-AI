@@ -7,7 +7,7 @@ class VectorStoreManager:
         # Stores the DB in 'chroma_db' folder in your project root
         db_path = os.path.join(settings.BASE_DIR, "chroma_db")
         self.client = chromadb.PersistentClient(path=db_path)
-        self.collection = self.client.get_or_create_collection(name="resumes")
+        self.collection = self.client.get_or_create_collection(name="resume_embeddings")
 
     def add_resume_chunks(self, resume_id, chunks, embeddings):
         if not chunks or not embeddings:
