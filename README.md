@@ -46,6 +46,54 @@ To maintain a clean working directory, the storage for candidate uploads has bee
   * Successful builds: Generates the LaTeX source `generated_resume_10.tex`, compiled binary `generated_resume_10.pdf`, and compiler stdout logs `generated_resume_10.log`.
   * Debug builds: Compilation failures generate `failed_resume.tex` and `failed_resume.log` inside this directory for easy developer troubleshooting.
 
+
+---
+
+## 🚀 Quick Start (Docker Compose)
+
+You can run the entire decoupled stack (Frontend, Backend, Celery Worker, Redis, and SQLite) instantly with one command:
+
+### 1. Configure your `.env` file:
+Create a `.env` file in the root of the project directory:
+```ini
+USE_VERTEX_AI=True
+GCP_PROJECT_ID="your-gcp-project-id"
+GCP_LOCATION="us-central1"
+GEMINI_MODEL="gemini-2.5-flash"
+```
+
+### 2. Launch the services:
+```bash
+docker-compose up -d --build
+```
+
+### 3. Initialize the SQLite database:
+```bash
+docker-compose exec backend python3 manage.py migrate
+```
+
+* **Frontend Dashboard**: `http://localhost` (Port 80)
+* **Backend API Docs**: `http://localhost:8000/api/`
+
+---
+
+## 🛠️ GCP Production Deployment Checklist
+
+When deploying this agent on a Google Cloud Platform Compute Engine Virtual Machine (GCE VM), refer to this checklist to ensure smooth, secure operations:
+
+1. 🔑 **Access Scopes (Vertex AI Authorization):** 
+   Set the VM Instance API Access Scope to **"Allow full access to all Cloud APIs"** (`cloud-platform`). This allows Python's Google Cloud SDK to automatically and securely authenticate with Vertex AI without needing hardcoded Service Account JSON keys.
+2. 🛜 **VPC Firewall Configuration:** 
+   Add a public ingress firewall rule allowing **`tcp:80`** from IP ranges `0.0.0.0/0` so the React/Nginx frontend is accessible on the open web.
+3. ⚙️ **Celery Solo Pool for gRPC:** 
+   To prevent Google Cloud client libraries (which use gRPC) from hanging due to fork-safety issues, always run the Celery worker with the `--pool=solo` flag:
+   ```bash
+   celery -A AI_Agent_Powered_Resume_Analyzer worker --loglevel=info --pool=solo
+   ```
+4. 💾 **Docker Space Pruning:** 
+   LaTeX compilation dependencies (`texlive-latex-extra`) require about 1.5GB of space during Docker builds. Clean up dangling images using `docker system prune -a --volumes -f` to maintain sufficient free disk space.
+5. 🛡️ **Django ALLOWED_HOSTS:** 
+   In production, configure `ALLOWED_HOSTS = ['*']` in `settings.py` so Django accepts requests routed through the public VM IP address or load balancers.
 ---
 
 ## 🛠️ Tech Stack
