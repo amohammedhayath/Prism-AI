@@ -7,7 +7,7 @@ const JobAnalyzer = ({ resumeId }) => {
     const [title, setTitle] = useState('');
     const [analyzing, setAnalyzing] = useState(false);
     const [result, setResult] = useState(null);
-    // const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('');
     const [activeTab, setActiveTab] = useState('report'); 
     const pollingIntervalRef = useRef(null);
 
