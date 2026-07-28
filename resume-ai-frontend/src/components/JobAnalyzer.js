@@ -19,7 +19,7 @@ const JobAnalyzer = ({ resumeId }) => {
             }
         };
     }, []);
-
+/*
     const handleAnalyze = async () => {
         if (!resumeId) return;
         setAnalyzing(true);
@@ -42,6 +42,32 @@ const JobAnalyzer = ({ resumeId }) => {
             alert("Analysis failed.");
         }
     };
+*/
+    const API_BASE_URL = process.env.REACT_APP_API_URL || '';
+
+    const handleAnalyze = async () => {
+        if (!resumeId) return;
+        setAnalyzing(true);
+        setResult(null); 
+        setActiveTab('report'); 
+        setStatus('Starting...');
+
+        try {
+            // ✅ Prefix with API_BASE_URL so the request goes to Cloudflare/Django!
+            const response = await axios.post(`${API_BASE_URL}/api/jobs/analyze/`, {
+                resume_id: resumeId,
+                title: title || "Frontend Job Search",
+                description: jobDescription
+            });
+            const jobId = response.data.job_id;
+            setStatus('Thinking...');
+            pollForResult(jobId);
+        } catch (error) {
+            console.error(error);
+            setAnalyzing(false);
+            alert("Analysis failed.");
+        }
+    };
 
     const pollForResult = (jobId) => {
         if (pollingIntervalRef.current) {
@@ -50,7 +76,7 @@ const JobAnalyzer = ({ resumeId }) => {
 
         pollingIntervalRef.current = setInterval(async () => {
             try {
-                const res = await axios.get(`/api/jobs/${jobId}/result/`);
+                const res = await axios.get(`${API_BASE_URL}/api/jobs/${jobId}/result/`);
                 if (res.data.status === "COMPLETED") {
                     clearInterval(pollingIntervalRef.current);
                     pollingIntervalRef.current = null;
