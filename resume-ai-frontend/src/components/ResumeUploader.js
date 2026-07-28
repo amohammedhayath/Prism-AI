@@ -14,7 +14,7 @@ const ResumeUploader = ({ onUploadSuccess }) => {
 
         try {
             const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://35.188.159.223';
-            const response = await axios.post(`${API_BASE_URL}/api/resumes/upload/`, formData);
+            const response = await axios.post(`${API_BASE_URL.replace(/\/$/, '')}/api/resumes/upload/`, formData);
             // const response = await axios.post('/api/resumes/upload/', formData);
             setMessage(`✅ Upload Successful! ID: ${response.data.id}`);
             onUploadSuccess(response.data.id);
