@@ -177,31 +177,69 @@ class RejectSuggestionView(APIView):
 
 
 # --- 8. Compile and Download PDF ---
+# class DownloadResumePDFView(APIView):
+#     def get(self, request, resume_id):
+#         try:
+#             resume = Resume.objects.get(id=resume_id)
+            
+#             if not resume.structured_data:
+#                 return Response({"error": "No structured resume data found. Please wait until upload is fully indexed."}, status=status.HTTP_400_BAD_REQUEST)
+
+#             # Read theme from query parameters (e.g. ?theme=Tech) or fallback to saved preference
+#             selected_theme = request.query_params.get('theme', resume.preferred_theme)
+            
+#             # Save selection as preferred theme
+#             if selected_theme != resume.preferred_theme:
+#                 resume.preferred_theme = selected_theme
+#                 resume.save()
+
+#             print(f"Compiling resume {resume_id} using theme: {selected_theme}...")
+            
+#             # Run our compilation pipeline
+#             pdf_bytes = compile_latex_to_pdf(resume.structured_data, selected_theme)
+
+#             # Return binary stream directly to client
+#             response = HttpResponse(pdf_bytes, content_type='application/pdf')
+#             filename = f"{resume.candidate_name.replace(' ', '_')}_Resume.pdf"
+#             response['Content-Disposition'] = f'attachment; filename="{filename}"'
+#             response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+#             response['Pragma'] = 'no-cache'
+#             response['Expires'] = '0'
+#             return response
+
+#         except Resume.DoesNotExist:
+#             return Response({"error": "Resume not found"}, status=status.HTTP_404_NOT_FOUND)
+#         except Exception as err:
+#             return Response({"error": f"Failed to compile LaTeX PDF: {err}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 class DownloadResumePDFView(APIView):
     def get(self, request, resume_id):
         try:
             resume = Resume.objects.get(id=resume_id)
             
             if not resume.structured_data:
-                return Response({"error": "No structured resume data found. Please wait until upload is fully indexed."}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"error": "No structured resume data found. Please wait until upload is fully indexed."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
-            # Read theme from query parameters (e.g. ?theme=Tech) or fallback to saved preference
             selected_theme = request.query_params.get('theme', resume.preferred_theme)
             
-            # Save selection as preferred theme
             if selected_theme != resume.preferred_theme:
                 resume.preferred_theme = selected_theme
                 resume.save()
 
             print(f"Compiling resume {resume_id} using theme: {selected_theme}...")
             
-            # Run our compilation pipeline
             pdf_bytes = compile_latex_to_pdf(resume.structured_data, selected_theme)
 
-            # Return binary stream directly to client
+            # Sanitize candidate name for header safety
+            candidate_name = getattr(resume, 'candidate_name', 'Upgraded') or 'Upgraded'
+            safe_filename = f"{candidate_name.replace(' ', '_')}_Resume.pdf"
+
             response = HttpResponse(pdf_bytes, content_type='application/pdf')
-            filename = f"{resume.candidate_name.replace(' ', '_')}_Resume.pdf"
-            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            response['Content-Disposition'] = f'attachment; filename="{safe_filename}"'
+            # Expose header so Axios in React can access Content-Disposition
+            response['Access-Control-Expose-Headers'] = 'Content-Disposition'
             response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
             response['Pragma'] = 'no-cache'
             response['Expires'] = '0'
