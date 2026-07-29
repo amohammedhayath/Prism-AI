@@ -248,4 +248,9 @@ class DownloadResumePDFView(APIView):
         except Resume.DoesNotExist:
             return Response({"error": "Resume not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as err:
+            import traceback
+            print("=" * 50)
+            print("LATEX PDF GENERATION ERROR:")
+            traceback.print_exc()
+            print("=" * 50)
             return Response({"error": f"Failed to compile LaTeX PDF: {err}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
