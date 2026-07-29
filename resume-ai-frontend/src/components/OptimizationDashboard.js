@@ -99,10 +99,43 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     };
 
     // --- Trigger Server Compile & Download PDF ---
-    const triggerDownload = () => {
-        setDownloading(true);
-        setTimeout(() => setDownloading(false), 2000);
-        window.open(getBackendUrl(`/api/resumes/${resumeId}/download/?theme=${selectedTheme}`), '_blank');
+    // const triggerDownload = () => {
+    //     setDownloading(true);
+    //     setTimeout(() => setDownloading(false), 2000);
+    //     window.open(getBackendUrl(`/api/resumes/${resumeId}/download/?theme=${selectedTheme}`), '_blank');
+    // };
+
+    // --- Trigger Server Compile & Download PDF ---
+    const triggerDownload = async () => {
+        try {
+            setDownloading(true);
+    
+            const response = await axios.get(
+                `${API_BASE_URL}/api/resumes/${resumeId}/download/`,
+                {
+                    params: { theme: selectedTheme },
+                    responseType: 'blob', // Crucial: Tells Axios to treat the response as binary data
+                }
+            );
+    
+            // Create a hidden link to trigger direct file save without opening a new tab
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', `Upgraded_Resume_${selectedTheme}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            
+            // Cleanup
+            link.remove();
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            console.error("PDF Download failed:", error);
+            alert("Failed to download PDF. Please try again.");
+        } finally {
+            setDownloading(false);
+        }
     };
 
     return (
