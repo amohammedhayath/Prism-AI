@@ -17,10 +17,12 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     };
 
     // Auto-fetch existing suggestions on mount, and handle unmount cleanup
+    const API_BASE_URL = process.env.REACT_APP_API_URL || '';
     useEffect(() => {
         const fetchExistingSuggestions = async () => {
             try {
-                const res = await axios.get(`/api/optimize/${matchId}/results/`);
+                // const res = await axios.get(`/api/optimize/${matchId}/results/`);
+                const res = await axios.get(`${API_BASE_URL}/api/optimize/${matchId}/results/`);
                 if (res.data.status === 'COMPLETED' && res.data.data.length > 0) {
                     setSuggestions(res.data.data);
                     setStatus('COMPLETED');
@@ -42,7 +44,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     const startOptimization = async () => {
         try {
             setStatus('PROCESSING');
-            await axios.post('/api/optimize/trigger/', { match_id: matchId });
+            await axios.post(`${API_BASE_URL}/api/optimize/trigger/`, { match_id: matchId });
             pollForResults();
         } catch (error) {
             console.error(error);
@@ -57,7 +59,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
 
         pollingIntervalRef.current = setInterval(async () => {
             try {
-                const res = await axios.get(`/api/optimize/${matchId}/results/`);
+                const res = await axios.get(`${API_BASE_URL}/api/optimize/${matchId}/results/`);
                 if (res.data.status === 'COMPLETED' && res.data.data.length > 0) {
                     setSuggestions(res.data.data);
                     setStatus('COMPLETED');
@@ -73,7 +75,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     // --- Interactive Action: Accept Suggestions ---
     const handleAccept = async (id) => {
         try {
-            await axios.post(`/api/suggestions/${id}/accept/`);
+            await axios.post(`${API_BASE_URL}/api/suggestions/${id}/accept/`);
             setSuggestions(prev => prev.map(item => 
                 item.id === id ? { ...item, status: 'ACCEPTED' } : item
             ));
@@ -86,7 +88,7 @@ const OptimizationDashboard = ({ matchId, resumeId }) => {
     // --- Interactive Action: Reject Suggestions ---
     const handleReject = async (id) => {
         try {
-            await axios.post(`/api/suggestions/${id}/reject/`);
+           await axios.post(`${API_BASE_URL}/api/suggestions/${id}/reject/`);
             setSuggestions(prev => prev.map(item => 
                 item.id === id ? { ...item, status: 'REJECTED' } : item
             ));
